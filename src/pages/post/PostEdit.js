@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux'
 import { actionCreators as QuestionActions } from '../../redux/modules/dictquestion'
 import { dictQuestionApi } from '../../shared/api'
 import { ReactComponent as AddPhotoIcon } from '../../styles/icons/size(28*28)(30*30)/addphoto_30dp.svg'
-import Header from '../../components/Header'
-import AlertModal from '../../components/modal/AlertModal'
+import { history } from '../../redux/ConfigureStore'
+import { Header } from '../../components'
+import { AlertModal } from '../../components/modal'
 
 const PostEdit = (props) => {
   const dispatch = useDispatch()

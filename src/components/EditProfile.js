@@ -1,15 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { userApi } from '../../shared/api'
-import { actionCreators as mypageActions } from '../../redux/modules/mypage'
+import { userApi } from '../shared/api'
+import { actionCreators as mypageActions } from '../redux/modules/mypage'
 
-import Grid from '../../elements/Grid'
-import DoubleCheckModal from '../modal/DoubleCheckModal'
+import { Grid } from '../elements'
+import { DoubleCheckModal, AlertModal, ConfirmButton } from './modal'
 import Backdrop from '@mui/material/Backdrop'
-import AlertModal from '../../components/modal/AlertModal'
-import { ReactComponent as CloseIcon } from '../../styles/icons/X_24dp.svg'
-import { ReactComponent as CameraIcon } from '../../styles/icons/camera.svg'
+import { ReactComponent as CloseIcon } from '../styles/icons/X_24dp.svg'
+import { ReactComponent as CameraIcon } from '../styles/icons/camera.svg'
 
 const EditProfile = ({ showModal, setShowModal, my }) => {
   const dispatch = useDispatch()
@@ -176,12 +175,12 @@ const EditProfile = ({ showModal, setShowModal, my }) => {
       {doubleCheck === null && null}
       {doubleCheck === true && (
         <DoubleCheckModal title="사용 가능한 닉네임입니다." question="등록하러 가볼까요?" doubleCheck={doubleCheck} setDoubleCheck={setDoubleCheck}>
-          <ConfirmButton onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
+          <ConfirmButton _onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
         </DoubleCheckModal>
       )}
       {doubleCheck === false && (
         <DoubleCheckModal type="exist-onlyConfirm" title="이미 등록된 닉네임입니다." question="다른 닉네임으로 시도해 보세요!" doubleCheck={doubleCheck} setDoubleCheck={setDoubleCheck}>
-          <ConfirmButton onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
+          <ConfirmButton _onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
         </DoubleCheckModal>
       )}
       {doubleCheckAlert && <AlertModal showModal={doubleCheckAlert}>먼저 중복확인 버튼을 클릭해주세요!</AlertModal>}
@@ -280,13 +279,6 @@ const ProfileImagePreview = styled.div`
   background-position: center;
   background-color: ${({ theme }) => theme.colors.white}; ;
 `
-
-const ConfirmButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
-`
-
 const DoubleCheckButton = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 700;

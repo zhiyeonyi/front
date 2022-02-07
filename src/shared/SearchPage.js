@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import History from '../shared/SearchHistory'
+import { useDispatch } from 'react-redux'
 import SearchBar from '../shared/SearchBar'
 
 function SearchPage(props) {

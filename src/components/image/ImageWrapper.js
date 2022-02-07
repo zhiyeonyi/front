@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Grid from '../../elements/Grid'
+import { Grid } from '../../elements'
 
 const ImageWrapper = ({ children }) => {
   return (

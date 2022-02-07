@@ -11,7 +11,7 @@ import { ReactComponent as EmptyBookMarkIcon } from '../styles/icons/bookmark_bl
 import { ReactComponent as FillBookMarkIcon } from '../styles/icons/bookmark_filled.svg'
 import { ReactComponent as DictLinkCopyIcon } from '../styles/icons/link.svg'
 import { dictApi } from '../shared/api'
-import AlertModal from './modal/AlertModal'
+import { AlertModal } from './modal'
 
 const DictMyScrapbook = (props) => {
   const dispatch = useDispatch()

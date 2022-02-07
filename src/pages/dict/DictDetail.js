@@ -4,20 +4,13 @@ import { useDispatch } from 'react-redux'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import styled from 'styled-components'
 import { history } from '../../redux/ConfigureStore'
-import { dictApi } from '../../shared/api'
-import { likeApi } from '../../shared/api'
+import { dictApi, likeApi } from '../../shared/api'
 import { ReactComponent as EmptyBookMarkIcon } from '../../styles/icons/bookmark_blank.svg'
 import { ReactComponent as FillBookMarkIcon } from '../../styles/icons/bookmark_filled.svg'
-import 'moment'
-import 'moment/locale/ko'
-import moment from 'moment'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import Grid from '../../elements/Grid'
+import { Header, Footer, DictRelatedYoutube } from '../../components'
+import { Grid, ProfileImage } from '../../elements'
 import { ReactComponent as CopyIcon } from '../../styles/icons/link.svg'
-import AlertModal from '../../components/modal/AlertModal'
-import ConfirmModal from '../../components/modal/ConfirmModal'
-import RelatedYoutube from '../../components/DictRelatedYoutube'
+import { AlertModal, ConfirmModal, ConfirmButton } from '../../components/modal'
 
 const DictDetail = (props) => {
   const dispatch = useDispatch()
@@ -135,7 +128,7 @@ const DictDetail = (props) => {
           </Grid>
           <Grid>
             <div className="OneDictCardDetailInfo_RelatedVideo">
-              <RelatedYoutube />
+              <DictRelatedYoutube />
             </div>
           </Grid>
           <Grid flex_between>
@@ -155,14 +148,14 @@ const DictDetail = (props) => {
 
         <div className="OneDictCardDetailInfoWriterAndAt">
           <div className="OneDictCardDetailInfoWriterAndAt First">
-            <img className="OneDictCardDetailInfoFirstWriterProfileImage" src={dict.firstWriterProfileImage} />
+            <ProfileImage src={dict.firstWriterProfileImage} border margin="0 5px 0 0" size="30" />
             <div className="OneDictCardDetailInfoFirstWriterCreatedAt">
               <div className="OneDictCardDetailInfoFirstWriter">{dict.firstWriter}</div>
               <div className="OneDictCardDetailInfoCreatedAt">(최초 작성자) {createdAt}</div>
             </div>
           </div>
           <div className="OneDictCardDetailInfoWriterAndAt Recent">
-            <img className="OneDictCardDetailInfoRecentWriterProfileImage" src={dict.recentWriterProfileImage} />
+            <ProfileImage src={dict.recentWriterProfileImage} border margin="0 5px 0 0" size="30" />
             <div className="OneDictCardDetailInfoRecentWriterModifiedAt">
               <div className="OneDictCardDetailInfoRecentWriter">{dict.recentWriter}</div>
               <div className="OneDictCardDetailInfoModifiedAt">(최근 작성자) {modifiedAt}</div>
@@ -187,16 +180,10 @@ const DictDetail = (props) => {
       <Footer />
       <AlertModal showModal={copyLink}>링크 복사 완료!</AlertModal>
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )
 }
-
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
-`
 
 export default DictDetail

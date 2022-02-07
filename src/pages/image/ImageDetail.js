@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { history } from '../../redux/ConfigureStore'
 import { imageApi } from '../../shared/api'
 import { likeApi } from '../../shared/api'
-import { actionCreators as mypageActions } from '../../redux/modules/mypage'
 
-import Grid from '../../elements/Grid'
-import ConfirmModal from '../../components/modal/ConfirmModal'
+import { Grid, ProfileImage } from '../../elements'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
 import ImageWrapper from '../../components/image/ImageWrapper'
-import ShareBottomSheet from '../../components/ShareBottomSheet'
+import { ShareBottomSheet } from '../../components'
 
 import { ReactComponent as CloseIcon } from '../../styles/icons/size(28*28)(30*30)/close_28dp.svg'
 import { ReactComponent as DeleteIcon } from '../../styles/icons/size(28*28)(30*30)/bin_28dp.svg'
@@ -19,7 +17,6 @@ import { ReactComponent as EmptyHeartIcon } from '../../styles/icons/size(28*28)
 import { ReactComponent as FullHeartIcon } from '../../styles/icons/size(28*28)(30*30)/heart_filled_28dp.svg'
 
 const ImageDetail = (props) => {
-  const dispatch = useDispatch()
   const boardId = useParams().imageId
   const username = localStorage.getItem('username')
   const userId = localStorage.getItem('id')
@@ -106,7 +103,7 @@ const ImageDetail = (props) => {
       .catch((error) => {
         console.log('상세 이미지를 불러오는 데 문제가 발생했습니다.', error.response)
       })
-  }, [])
+  }, [boardId])
 
   return (
     <>
@@ -115,13 +112,14 @@ const ImageDetail = (props) => {
           <CloseIcon
             className="icon"
             onClick={() => {
-              history.replace('/image')
+              // history.replace('/image')
+              history.goBack()
             }}
           />
         </Grid>
         <Grid flex_between padding="16px">
           <Grid flex_align>
-            <ProfileImage src={imageData.profileImageUrl} />
+            <ProfileImage src={imageData.profileImageUrl} size="40" />
             <div style={{ paddingLeft: '10px', display: 'flex', flexDirection: 'column' }}>
               <ImageWriter>{imageData.writer}</ImageWriter>
               <ImageCreatedAt>{createdAt}</ImageCreatedAt>
@@ -133,7 +131,7 @@ const ImageDetail = (props) => {
           </div>
         </Grid>
         <Grid flex_center height="fit-content" overflow="hidden">
-          <img src={imageData.thumbNail} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={imageData.thumbNail} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="짤 이미지" />
         </Grid>
         <Grid flex_align padding="10px 16px 16px">
           {isLiked ? <FullHeartIcon className="icon" onClick={handleClickLike} /> : <EmptyHeartIcon className="icon" onClick={handleClickLike} />}
@@ -142,25 +140,14 @@ const ImageDetail = (props) => {
         <ShareBottomSheet type="image" shareVisible={shareVisible} setShareVisible={setShareVisible} thumbNail={thumbNail} boardId={boardId} />
       </ImageWrapper>
       <ConfirmModal question="밈짤을 삭제하시겠어요?" showModal={showModal} handleShowModal={handleShowModal} setShowModal={setShowModal}>
-        <ModalButton onClick={handleDeleteImage}>삭제</ModalButton>
+        <ConfirmButton _onClick={handleDeleteImage}>삭제</ConfirmButton>
       </ConfirmModal>
       <ConfirmModal showModal={showLoginModal} setShowModal={setShowLoginModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <ModalButton onClick={() => history.push('/login')}>이동</ModalButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )
 }
-
-const ProfileImage = styled.div`
-  width: 40px;
-  height: 40px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 20px;
-  background-size: cover;
-  background-image: url('${(props) => props.src}');
-  background-position: center;
-  background-color: ${({ theme }) => theme.colors.white};
-`
 
 const ImageWriter = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.base};
@@ -175,12 +162,6 @@ const ImageLikeCount = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   color: ${({ theme }) => theme.colors.white};
   padding: 0 0 0 5px;
-`
-
-const ModalButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default ImageDetail

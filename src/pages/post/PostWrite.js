@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { actionCreators as questionActions } from '../../redux/modules/dictquestion'
 import { ReactComponent as AddPhotoIcon } from '../../styles/icons/size(28*28)(30*30)/addphoto_30dp.svg'
-import Header from '../../components/Header'
+import { history } from '../../redux/ConfigureStore'
+import { Header } from '../../components'
 
 const PostWrite = (props) => {
   const dispatch = useDispatch()

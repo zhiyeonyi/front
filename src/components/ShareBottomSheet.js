@@ -4,7 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import useScript from '../util/useScript'
 
 import BottomPopup from './BottomPopup'
-import AlertModal from './modal/AlertModal'
+import { AlertModal } from './modal'
 import { ReactComponent as LinkCopyIcon } from '../styles/icons/link.svg'
 import { KakaoShareButton } from '../shared/kakaoShare'
 import { KakaoImageShareButton } from '../shared/kakaoImageShare'

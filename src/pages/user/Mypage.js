@@ -1,17 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import Masonry from 'react-masonry-css'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators as mypageActions } from '../../redux/modules/mypage'
-import '../../styles/css/Mypage.css'
 
-import Masonry from 'react-masonry-css'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import EditProfile from '../../components/mypage/EditProfile'
-import PostCard from '../../components/PostCard'
+import { Header, Footer, EditProfile, PostCard, OneDictionaryCard } from '../../components'
 import MyPageOneImageCard from '../../components/image/MypageOneImageCard'
-import OneDictionaryCard from '../../components/OneDictionaryCard'
-import Grid from '../../elements/Grid'
+import { Grid } from '../../elements'
 import { ReactComponent as EditIcon } from '../../styles/icons/edit.svg'
 
 const Mypage = (props) => {
@@ -65,7 +60,7 @@ const Mypage = (props) => {
     if (my == null) {
       dispatch(mypageActions.getMypageDataDB())
     }
-  }, [])
+  }, [dispatch, my])
 
   return (
     <>

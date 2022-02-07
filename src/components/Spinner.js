@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Grid from '../elements/Grid'
+import { Grid } from '../elements'
 import WifiSpinner from '../styles/image/wifi.gif'
 import RobotSpinner from '../styles/image/spinner.png'
 import RobotSpinnerWhite from '../styles/image/spinner_white.png'

@@ -41,19 +41,19 @@ code {
   font-family: 'Pretendard Variable';
   font-style: normal;
   font-weight: 700;
-  src: url('styles/fonts/Pretendard-Bold.woff') format('woff'), url('styles/fonts/Pretendard-Bold.woff2') format('woff2');
+  src: url('styles/fonts/Pretendard-Bold.woff2') format('woff2'), url('styles/fonts/Pretendard-Bold.woff') format('woff');
 }
 
 @font-face {
   font-family: 'YdestreetB';
   font-style: normal;
   font-weight: normal;
-  src: url('styles/fonts/YdestreetB.woff') format('woff'), url('styles/fonts/YdestreetB.woff2') format('woff2');
+  src: url('styles/fonts/YdestreetB.woff2') format('woff2'), url('styles/fonts/YdestreetB.woff') format('woff');
 }
 
 @font-face {
   font-family: 'YdestreetL';
   font-style: normal;
   font-weight: normal;
-  src: url('styles/fonts/YdestreetL.woff') format('woff'), url('styles/fonts/YdestreetL.woff2') format('woff2');
+  src: url('styles/fonts/YdestreetL.woff2') format('woff2'), url('styles/fonts/YdestreetL.woff2') format('woff2');
 }

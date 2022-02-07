@@ -2,8 +2,6 @@ import { createAction, handleActions } from 'redux-actions'
 import { produce } from 'immer'
 import { dictQuestionApi } from '../../shared/api'
 import { applyMiddleware } from 'redux'
-import moment from 'moment'
-import 'moment'
 import { Login } from '../../pages'
 
 // /* action type */ 목록/상세/작성/수정/삭제/검색

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionCreators as userActions } from '../redux/modules/user'
+import { Spinner } from '../components'
 
 import styled from 'styled-components'
 
@@ -14,7 +15,11 @@ const GoogleLoginHandler = (props) => {
   React.useEffect(async () => {
     await dispatch(userActions.googleLoginDB(code))
   }, [])
-  return <BackGround></BackGround>
+  return (
+    <BackGround>
+      <Spinner />
+    </BackGround>
+  )
 }
 
 const BackGround = styled.div`

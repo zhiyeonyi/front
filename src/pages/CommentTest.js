@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionCreators as commentActions } from '../redux/modules/comment'
 import { actionCreators as mypageActions } from '../redux/modules/mypage'
-import OneComment from '../components/OneComment'
+import { OneComment } from '../components'
 import { ReactComponent as SendIcon } from '../styles/icons/send.svg'
 import MemegleLogo from '../styles/image/smileIcon_Yellow.png'
 import { useHistory } from 'react-router'
-import ConfirmModal from '../components/modal/ConfirmModal'
+import { ConfirmModal, ConfirmButton } from '../components/modal'
+import { ProfileImage } from '../elements'
 
 const CommentTest = ({ question }) => {
   const dispatch = useDispatch()
@@ -55,7 +56,7 @@ const CommentTest = ({ question }) => {
     <>
       <CommentWrite>
         <ImgInput>
-          <img className="commentImg" src={isLogin ? now_profile && now_profile.profileImage : MemegleLogo} alt="" />
+          <ProfileImage src={isLogin ? now_profile && now_profile.profileImage : MemegleLogo} size="30" border margin="0 20px 0 0" />
           <input
             className="writebox"
             placeholder="답변을 남겨주세요!"
@@ -69,7 +70,7 @@ const CommentTest = ({ question }) => {
             }}
           ></input>
           <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-            <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+            <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
           </ConfirmModal>
         </ImgInput>
         <SendIcon style={{ cursor: 'pointer' }} onClick={addComment} />
@@ -98,31 +99,18 @@ const CommentWrite = styled.div`
   border-top: 2px solid black;
   background: #fcfcfc;
 `
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
-`
-
 const ImgInput = styled.div`
   width: 100%;
   display: flex;
   display: -ms-flexbox;
   display: -webkit-flex;
   align-items: center;
-
-  .commentImg {
-    width: 30px;
-    height: 30px;
-    border-radius: 150px;
-    border: 2px solid black;
-  }
   .writebox {
     border: none;
     font-size: 16px;
-    padding: 0 20px;
+    padding: 0 20px 0 0;
     background-color: ${({ theme }) => theme.colors.bg};
-    width: 100%;
+    width: calc(100% - 50px);
     &::placeholder {
       color: ${({ theme }) => theme.colors.grey};
     }

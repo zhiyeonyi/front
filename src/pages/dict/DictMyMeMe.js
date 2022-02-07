@@ -2,12 +2,8 @@ import React from 'react'
 
 import '../../styles/css/DictMyMeme.css'
 
-import DictNavBar from '../../components/DictNavBar'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import DictMyScrapbook from '../../components/DictMyScrapbook'
-import Title from '../../elements/Title'
-import Grid from '../../elements/Grid'
+import { DictNavBar, Header, Footer, DictMyScrapbook } from '../../components'
+import { Title, Grid } from '../../elements'
 
 const DictMyMeMe = (props) => {
   return (

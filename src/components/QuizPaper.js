@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { actionCreators as quizActions } from '../redux/modules/quiz'
 
-import Grid from '../elements/Grid'
+import { Grid } from '../elements'
 import QuizResult from '../pages/QuizResult'
 
 const QuizPaper = (props) => {
@@ -14,56 +14,15 @@ const QuizPaper = (props) => {
 
   const [showResult, setShowResult] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [answer, setAnswer] = useState('')
-  const [clicked1, setClicked1] = useState(false)
-  const [clicked2, setClicked2] = useState(false)
-  const [clicked3, setClicked3] = useState(false)
-  const [clicked4, setClicked4] = useState(false)
 
-  const clickAnswer1 = (e) => {
-    setAnswer(e.target.value)
-    setClicked1(true)
-    setClicked2(false)
-    setClicked3(false)
-    setClicked4(false)
-  }
-
-  const clickAnswer2 = (e) => {
-    setAnswer(e.target.value)
-    setClicked1(false)
-    setClicked2(true)
-    setClicked3(false)
-    setClicked4(false)
-  }
-
-  const clickAnswer3 = (e) => {
-    setAnswer(e.target.value)
-    setClicked1(false)
-    setClicked2(false)
-    setClicked3(true)
-    setClicked4(false)
-  }
-
-  const clickAnswer4 = (e) => {
-    setAnswer(e.target.value)
-    setClicked1(false)
-    setClicked2(false)
-    setClicked3(false)
-    setClicked4(true)
-  }
-
-  const submitAnswer = (e) => {
+  const submitAnswer2 = (e) => {
     if (currentIndex === 9) {
-      dispatch(quizActions.addAnswer(answer))
+      dispatch(quizActions.addAnswer(e.target.value))
       setShowResult(true)
     } else {
-      dispatch(quizActions.addAnswer(answer))
+      dispatch(quizActions.addAnswer(e.target.value))
       setCurrentIndex(currentIndex + 1)
     }
-    setClicked1(false)
-    setClicked2(false)
-    setClicked3(false)
-    setClicked4(false)
   }
 
   React.useEffect(() => {
@@ -86,31 +45,23 @@ const QuizPaper = (props) => {
               <div className="question-number-box box-2"></div>
               <h2 className="title">{quiz ? quiz.question : null}</h2>
               <Grid flex_center height="100%" overflow="hidden" margin="16px 0 0">
-                <img src={quiz?.quizImage} className="quiz-image" />
+                <img src={quiz ? quiz.quizImage : ''} className="quiz-image" alt="퀴즈 이미지" />
               </Grid>
             </QuizTitle>
             <QuizBox>
-              <button className={`answer-btn ${clicked1 ? 'clicked' : ''}`} value={quiz ? quiz.choice[0] : ''} onClick={clickAnswer1}>
-                {quiz ? quiz.choice[0] : null}
+              <button className="answer-btn" value={quiz?.choice[0]} onClick={submitAnswer2}>
+                {quiz?.choice[0]}
               </button>
-              <button className={`answer-btn ${clicked2 ? 'clicked' : ''}`} value={quiz ? quiz.choice[1] : ''} onClick={clickAnswer2}>
-                {quiz ? quiz.choice[1] : null}
+              <button className="answer-btn" value={quiz?.choice[1]} onClick={submitAnswer2}>
+                {quiz?.choice[1]}
               </button>
-              <button className={`answer-btn ${clicked3 ? 'clicked' : ''}`} value={quiz ? quiz.choice[2] : ''} onClick={clickAnswer3}>
-                {quiz ? quiz.choice[2] : null}
+              <button className="answer-btn" value={quiz?.choice[2]} onClick={submitAnswer2}>
+                {quiz?.choice[2]}
               </button>
-              <button className={`answer-btn btn-4 ${clicked4 ? 'clicked' : ''}`} value={quiz ? quiz.choice[3] : ''} onClick={clickAnswer4}>
-                {quiz ? quiz.choice[3] : null}
+              <button className="answer-btn btn-4" value={quiz?.choice[3]} onClick={submitAnswer2}>
+                {quiz?.choice[3]}
               </button>
             </QuizBox>
-            <ButtonSection>
-              <div className="next-btn-box box-1">
-                <button className="next-btn" onClick={submitAnswer} disabled={!(clicked1 || clicked2 || clicked3 || clicked4)}>
-                  {currentIndex === 9 ? '결과' : '다음'}
-                </button>
-              </div>
-              <div className="next-btn-box box-2"></div>
-            </ButtonSection>
           </Wrapper>
         </>
       ) : (
@@ -210,65 +161,14 @@ const QuizBox = styled.div`
     border-bottom: 2px solid ${({ theme }) => theme.colors.black};
     padding: 16px 36px;
     line-height: 1.3;
+    transition: background-color 0.1s ease-in-out;
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.yellow};
+    }
   }
 
   .btn-4 {
     border: 0;
-  }
-
-  .clicked {
-    transition: background-color 0.1s ease-in-out;
-    background-color: ${({ theme }) => theme.colors.yellow};
-  }
-`
-
-const ButtonSection = styled.div`
-  position: relative;
-  width: 100%;
-  margin: 20px 0 40px;
-  padding: 0 0 80px;
-  .next-btn-box {
-    width: 120px;
-    height: 48px;
-    position: absolute;
-    border: 2px solid ${({ theme }) => theme.colors.black};
-    border-radius: 48px;
-    background-color: ${({ theme }) => theme.colors.blue};
-    .next-btn {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      border-radius: 48px;
-      font-size: ${({ theme }) => theme.fontSizes.xxl};
-      font-family: 'YdestreetB';
-      font-style: normal;
-      font-weight: normal;
-      :disabled {
-        background-color: ${({ theme }) => theme.colors.line};
-        cursor: not-allowed;
-        pointer-events: none;
-      }
-    }
-  }
-
-  .box-1 {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    transition-duration: 0.3s;
-    &:active {
-      left: calc(50%);
-      transform: translateX(calc(-50% + 4px));
-      top: 4px;
-    }
-  }
-
-  .box-2 {
-    top: 4px;
-    left: calc(50%);
-    transform: translateX(calc(-50% + 4px));
-    background-color: ${({ theme }) => theme.colors.white};
   }
 `
 

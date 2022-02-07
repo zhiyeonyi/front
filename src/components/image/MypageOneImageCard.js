@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { history } from '../../redux/ConfigureStore'
 import { imageApi } from '../../shared/api'
 
-import Grid from '../../elements/Grid'
-import ConfirmModal from '../modal/ConfirmModal'
+import { Grid } from '../../elements'
+import { ConfirmModal, ConfirmButton } from '../modal'
 import { ReactComponent as DeleteIcon } from '../../styles/icons/bin.svg'
 import { ReactComponent as EmptyHeart } from '../../styles/icons/heart_blank.svg'
 
-const MyPageOneImageCard = ({ image }) => {
+const MyPageOneImageCard = React.memo(({ image }) => {
   const boardId = image && image.boardId
   const createdDate = image && image.createdAt.split('T')[0]
 
@@ -59,12 +59,12 @@ const MyPageOneImageCard = ({ image }) => {
       </Wrapper>
       {showModal && (
         <ConfirmModal question="밈짤을 삭제하시겠어요?" showModal={showModal} handleShowModal={handleShowModal} setShowModal={setShowModal}>
-          <DeleteButton onClick={handleDeleteImage}>삭제</DeleteButton>
+          <ConfirmButton _onClick={handleDeleteImage}>삭제</ConfirmButton>
         </ConfirmModal>
       )}
     </>
   )
-}
+})
 
 const Wrapper = styled.div`
   position: relative;
@@ -128,12 +128,6 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`
-
-const DeleteButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default MyPageOneImageCard

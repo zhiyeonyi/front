@@ -4,12 +4,12 @@ import { history } from '../redux/ConfigureStore'
 import { likeApi } from '../shared/api'
 
 import Grid from '../elements/Grid'
-import ConfirmModal from './modal/ConfirmModal'
+import { ConfirmModal, ConfirmButton } from './modal'
 
 import { ReactComponent as EmptyBookMarkIcon } from '../styles/icons/bookmark_blank.svg'
 import { ReactComponent as FillBookMarkIcon } from '../styles/icons/bookmark_filled.svg'
 
-const OneDictionaryCard = ({ dict }) => {
+const OneDictionaryCard = React.memo(({ dict }) => {
   const userId = localStorage.getItem('id')
   const token = localStorage.getItem('token')
   const isLogin = userId !== null && token !== null ? true : false
@@ -64,11 +64,11 @@ const OneDictionaryCard = ({ dict }) => {
         </Grid>
       </Container>
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )
-}
+})
 
 const Container = styled.div`
   width: 100%;
@@ -122,12 +122,6 @@ const DictCreateAt = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
   width: fit-content;
   color: ${({ theme }) => theme.colors.grey};
-`
-
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default OneDictionaryCard

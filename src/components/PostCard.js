@@ -11,7 +11,7 @@ import { ReactComponent as ICuriousToo } from '../styles/icons/quiz_black_24dp.s
 import Grid from '../elements/Grid'
 import '../index.css'
 
-const PostCard = ({ question }) => {
+const PostCard = React.memo(({ question }) => {
   const history = useHistory()
 
   const onC = () => {
@@ -76,7 +76,7 @@ const PostCard = ({ question }) => {
       </FullWrap>
     </>
   )
-}
+})
 
 export default PostCard
 

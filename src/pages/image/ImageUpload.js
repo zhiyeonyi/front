@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { actionCreators as imageActions } from '../../redux/modules/image'
 
 import Grid from '../../elements/Grid'
-import ConfirmModal from '../../components/modal/ConfirmModal'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
 import ImageWrapper from '../../components/image/ImageWrapper'
 import { ReactComponent as CloseIcon } from '../../styles/icons/X_24dp.svg'
 
@@ -39,12 +39,12 @@ const ImageUpload = ({ preview, fileInput }) => {
           <UploadButton onClick={handleShowModal}>등록</UploadButton>
         </Grid>
         <Grid height="fit-conent" overflow="hidden">
-          <img src={preview} style={{ width: '100%', objectFit: 'cover' }} />
+          <img src={preview} style={{ width: '100%', objectFit: 'cover' }} alt="업로드할 이미지" />
         </Grid>
       </ImageWrapper>
       {showModal && (
         <ConfirmModal question="밈짤을 게시하시겠어요?" showModal={showModal} handleShowModal={handleShowModal} setShowModal={setShowModal}>
-          <SubmitButton onClick={handleUploadImage}>게시</SubmitButton>
+          <ConfirmButton _onClick={handleUploadImage}>게시</ConfirmButton>
         </ConfirmModal>
       )}
     </>
@@ -57,12 +57,6 @@ const UploadButton = styled.button`
   font-family: 'YdestreetB';
   font-style: normal;
   font-weight: normal;
-`
-
-const SubmitButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default ImageUpload

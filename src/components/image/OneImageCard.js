@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+import React, { useState, useEffect, useRef } from 'react'
+import styled from 'styled-components'
 import { likeApi } from '../../shared/api'
 import { history } from '../../redux/ConfigureStore'
 
 import ShareBottomSheet from '../ShareBottomSheet'
-import Grid from '../../elements/Grid'
-import ConfirmModal from '../modal/ConfirmModal'
+import { Grid } from '../../elements'
+import { ConfirmModal, ConfirmButton } from '../modal'
 
 import { ReactComponent as ShareIcon } from '../../styles/icons/share.svg'
 import { ReactComponent as EmptyHeartIcon } from '../../styles/icons/heart_blank.svg'
 import { ReactComponent as FullHeartIcon } from '../../styles/icons/heart_filled.svg'
 
-const OneImageCard = ({ image, type }) => {
+const OneImageCard = React.memo(({ image, type }) => {
   const boardId = image.boardId
   const userId = localStorage.getItem('id')
   const token = localStorage.getItem('token')
   const isLogin = userId !== null && token !== null ? true : false
+
+  const canvasRef = useRef()
+  const imgRef = useRef()
 
   const [hover, setHover] = useState(false)
   const [likeCount, setLikeCount] = useState(image.likeCnt)
@@ -60,6 +63,39 @@ const OneImageCard = ({ image, type }) => {
     }
   }
 
+  const drawCanvas = function () {
+    const img = new Image()
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
+
+    if (ctx) {
+      canvas.maxWidth = 150
+      canvas.height = '100%'
+      canvas.objectFit = 'cover'
+      canvas.backgroundColor = 'rgb(255, 255, 255)'
+
+      img.src = image && image.thumbNail
+      img.onload = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(img, 0, 0, 200, 200)
+      }
+
+      canvas.toBlob(function (blob) {
+        const reader = new FileReader()
+        reader.onload = function (e) {
+          imgRef.current.src = reader.result
+        }
+        reader.readAsDataURL(blob)
+      })
+    } else {
+      throw new Error('Could not get context')
+    }
+  }
+
+  // useEffect(() => {
+  //   drawCanvas()
+  // }, [])
+
   return (
     <>
       <ImageBox
@@ -73,7 +109,8 @@ const OneImageCard = ({ image, type }) => {
           history.push(`/image/detail/${image && image.boardId}`)
         }}
       >
-        <ImageThumbnail src={image && image.thumbNail}></ImageThumbnail>
+        <ImageThumbnail ref={imgRef} src={image && image.thumbNail}></ImageThumbnail>
+        {/* <canvas ref={canvasRef}></canvas> */}
         {/* {hover && ( */}
         <Overlay className={`${hover ? 'active' : 'inactive'}`}>
           <Grid flex_between column height="100%" padding="6px">
@@ -89,11 +126,11 @@ const OneImageCard = ({ image, type }) => {
       </ImageBox>
       <ShareBottomSheet type="image" shareVisible={shareVisible} setShareVisible={setShareVisible} thumbNail={thumbNail} boardId={boardId} />
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )
-}
+})
 
 const ImageBox = styled.div`
   display: flex;
@@ -114,7 +151,7 @@ const ImageBox = styled.div`
     bottom: 0;
     right: 0;
     z-index: 100;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     &:hover {
       background-color: rgba(0, 0, 0, 0.5);
     }
@@ -136,12 +173,6 @@ const Overlay = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.base};
     padding: 0 0 0 3px;
   }
-`
-
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default OneImageCard

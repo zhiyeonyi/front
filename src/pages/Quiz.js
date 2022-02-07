@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import QuizPaper from '../components/QuizPaper'
+import { QuizPaper } from '../components'
 
 const Quiz = (props) => {
   return (

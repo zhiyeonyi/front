@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 // 반응형 디자인을 위한 픽셀 컨버팅 함수
 const pixelToRem = (size) => `${size / 16}rem`
 

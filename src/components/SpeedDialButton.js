@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/css/SpeedDialButton.css'
 
-const SpeedDialButton = ({ children, _onClick }) => {
+const SpeedDialButton = React.memo(({ children, _onClick }) => {
   return (
     <>
       <div className="DictPageAddButton" onClick={_onClick}>
@@ -9,7 +9,7 @@ const SpeedDialButton = ({ children, _onClick }) => {
       </div>
     </>
   )
-}
+})
 
 SpeedDialButton.defaultProps = {
   children: null,

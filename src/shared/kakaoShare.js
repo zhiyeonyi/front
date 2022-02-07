@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import SmileIcon from '../styles/image/smileIcon_Yellow.png'
 import kakaoLogo from '../styles/image/kakao-logo.png'
 
 const KakaoShareButton = (props) => {

@@ -89,7 +89,7 @@ const uploadImageDB = (uploadFile) => {
     await imageApi
       .uploadImage(category, formData)
       .then((response) => {
-        const image = response.data.data
+        // const image = response.data.data
         dispatch(loading(false))
       })
       .then(() => {

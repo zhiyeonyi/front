@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import '../styles/css/DictNavBar.css'
 import { NavLink } from 'react-router-dom'
 
-const DictNavBar = () => {
+const DictNavBar = React.memo(() => {
   return (
     <>
       <nav className="DictNavWrapper">
@@ -34,7 +34,7 @@ const DictNavBar = () => {
       </nav>
     </>
   )
-}
+})
 
 const StyledNavLink = styled(NavLink)`
   width: fit-content;

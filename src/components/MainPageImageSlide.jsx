@@ -8,7 +8,7 @@ const MainPageImageSlide = ({ type }) => {
     <>
       <div className="MainPageSlideLayout">
         <div className="SlideImage">
-          <img src={type === 'quiz' ? MainCarousel_1 : MainCarousel_2} />
+          <img src={type === 'quiz' ? MainCarousel_1 : MainCarousel_2} alt="메인페이지 캐러셀 이미지" />
         </div>
       </div>
     </>

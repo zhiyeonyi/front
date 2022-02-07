@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
-import { history } from '../redux/ConfigureStore'
 
-import Grid from '../elements/Grid'
+import { Grid } from '../elements'
 import SmileIcon from '../styles/image/smileIcon_Blue.png'
 import { ReactComponent as DictIcon } from '../styles/icons/Dockbar_dictionary.svg'
 import { ReactComponent as MyPageIcon } from '../styles/icons/Dockbar_mypage.svg'
 import { ReactComponent as QuizIcon } from '../styles/icons/Dockbar_quiz.svg'
 import { ReactComponent as ZzalbangIcon } from '../styles/icons/Dockbar_zzalbang.svg'
 
-const Footer = (props) => {
+const Footer = React.memo((props) => {
   const userId = localStorage.getItem('id')
   const token = localStorage.getItem('token')
   const isLogin = userId !== null && token !== null ? true : false
@@ -67,7 +66,7 @@ const Footer = (props) => {
       </NavContainer>
     </>
   )
-}
+})
 
 const NavContainer = styled.div`
   width: 100%;

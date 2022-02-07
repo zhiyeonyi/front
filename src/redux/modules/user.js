@@ -2,9 +2,6 @@ import { createAction, handleActions } from 'redux-actions'
 import { produce } from 'immer'
 import { setCookie, deleteCookie } from '../../shared/cookie'
 import { userApi } from '../../shared/api'
-import swal from 'sweetalert'
-
-const { Kakao } = window
 
 const LOG_OUT = 'LOG_OUT'
 const GET_USER = 'GET_USER'

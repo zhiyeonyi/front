@@ -6,15 +6,9 @@ import { history } from '../../redux/ConfigureStore'
 import Pagination from 'rc-pagination'
 import SearchPage from '../../shared/SearchPage'
 import { dictApi } from '../../shared/api'
-import DictNavBar from '../../components/DictNavBar'
-import SpeedDialButton from '../../components/SpeedDialButton'
-import TodayDictCardSwiper from '../../components/TodayDictCardSwiper'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import Grid from '../../elements/Grid'
-import Title from '../../elements/Title'
-import OneDictionaryCard from '../../components/OneDictionaryCard'
-import ConfirmModal from '../../components/modal/ConfirmModal'
+import { DictNavBar, SpeedDialButton, TodayDictCardSwiper, Header, Footer, OneDictionaryCard } from '../../components'
+import { Grid, Title } from '../../elements'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
 import { ReactComponent as WriteIcon } from '../../styles/icons/write.svg'
 
 const DictList = (props) => {
@@ -87,7 +81,7 @@ const DictList = (props) => {
         <WriteIcon fill="#FFFFFF" />
       </SpeedDialButton>
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )
@@ -100,12 +94,6 @@ const SearchBarSection = styled.div`
   justify-content: center;
   align-items: center;
   padding: 24px 16px 16px;
-`
-
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default DictList

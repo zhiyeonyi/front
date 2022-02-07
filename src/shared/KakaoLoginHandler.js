@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionCreators as userActions } from '../redux/modules/user'
+import { Spinner } from '../components'
 
 import styled from 'styled-components'
 
@@ -17,7 +18,9 @@ const KakaoLoginHandler = (props) => {
 
   return (
     <>
-      <BackGround></BackGround>
+      <BackGround>
+        <Spinner />
+      </BackGround>
     </>
   )
 }

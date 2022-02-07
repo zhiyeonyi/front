@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { history } from '../../redux/ConfigureStore'
 import { dictApi } from '../../shared/api'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
+import { Header, Footer } from '../../components'
 import SearchPage from '../../shared/SearchPage'
-import ConfirmModal from '../../components/modal/ConfirmModal'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
+import { ProfileImage } from '../../elements'
 
 const DictEditHistory = (props) => {
   const dispatch = useDispatch()
@@ -56,7 +56,7 @@ const DictEditHistory = (props) => {
           {dictHistory.map((dictId) => (
             <div className="DictHistoryList" key={dictId.historyId}>
               <div className="DictWriterInfo">
-                <img className="DictWriterProfileImage" src={dictId.writerProfileImage} />
+                <ProfileImage src={dictId.writerProfileImage} size="35" border margin="0 10px 0 0" />
                 <div className="DictWriter">{dictId.writer} 님의 편집 내역</div>
               </div>
               <div className="DictHistoryCreatedAt">편집일 : {dictId.createdAt.split('T', 1)}</div>
@@ -64,7 +64,7 @@ const DictEditHistory = (props) => {
           ))}
           <div className="DictHistoryList">
             <div className="DictHistoryFirstWriterInfo">
-              <img className="DictFirstWriterProfileImage" src={isDict.firstWriterProfileImage} />
+              <ProfileImage src={isDict.firstWriterProfileImage} size="35" border margin="0 10px 0 0" />
               <div className="DictHistoryFirstWriter">{isDict.firstWriter} 님의 단어 등록</div>
             </div>
             <div className="DictHistoryFirstCreatedAt">등록일 : {firstCreatedAt}</div>
@@ -80,7 +80,7 @@ const DictEditHistory = (props) => {
       </div>
       <Footer />
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )
@@ -92,12 +92,6 @@ const SearchBarSection = styled.div`
   width: 100%;
   height: fit-content;
   z-index: 5;
-`
-
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default DictEditHistory

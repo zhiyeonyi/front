@@ -2,19 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { history } from '../redux/ConfigureStore'
-import { useParams } from 'react-router-dom' // 삭제 X (props로 받은 useParams().category)
+import { useParams } from 'react-router-dom' // 삭제 X (props로 받은 useParams().category에 사용)
 import { actionCreators as quizActions } from '../redux/modules/quiz'
 import { quizApi } from '../shared/api'
 
-import Grid from '../elements/Grid'
-import BottomPopup from '../components/BottomPopup'
-import ShareBottomSheet from '../components/ShareBottomSheet'
-import OneQuiz from '../components/OneQuiz'
-import Footer from '../components/Footer'
+import { Grid } from '../elements'
+import { BottomPopup, ShareBottomSheet, OneQuiz, Footer, Spinner } from '../components'
 import { ReactComponent as GoBackIcon } from '../styles/icons/되돌아가기_24dp.svg'
 import { ReactComponent as ShareIcon } from '../styles/icons/share.svg'
 import { ReactComponent as CloseIcon } from '../styles/icons/X_24dp.svg'
-import Spinner from '../components/Spinner'
 
 const QuizResult = ({ quiz_list, category }) => {
   const dispatch = useDispatch()
@@ -24,7 +20,7 @@ const QuizResult = ({ quiz_list, category }) => {
         return quiz.solution === user_answer_list[i]
       }).length
     : null
-
+  console.log(user_answer_list)
   const [showQuiz, setShowQuiz] = useState(false)
   const [resultText, setResultText] = useState({ sub: '', main: '' })
   const [shareVisible, setShareVisible] = useState(false)
@@ -62,18 +58,21 @@ const QuizResult = ({ quiz_list, category }) => {
     } else {
       setResultText({ sub: '치료가 필요할 정도로 심각한', main: '"밈중독"입니다.' })
     }
-  }, [])
+  }, [answerCnt])
 
-  useEffect(function () {
-    async function submitQuizScore() {
-      try {
-        const result = await quizApi.submitScore(category, answerCnt)
-      } catch (error) {
-        console.log('퀴즈 결과 전송 문제 발생', error.response)
+  useEffect(
+    function () {
+      async function submitQuizScore() {
+        try {
+          const result = await quizApi.submitScore(category, answerCnt)
+        } catch (error) {
+          console.log('퀴즈 결과 전송 문제 발생', error.response)
+        }
       }
-    }
-    submitQuizScore()
-  }, [])
+      submitQuizScore()
+    },
+    [answerCnt, category]
+  )
 
   return (
     <>

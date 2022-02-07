@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Grid from '../elements/Grid'
+import { Grid } from '../elements'
 import { ReactComponent as CrownIcon } from '../styles/icons/crown.svg'
 
 const OneRankingCard = ({ rank, index, first }) => {

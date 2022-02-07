@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { history } from '../redux/ConfigureStore'
-import Grid from '../elements/Grid'
+import { Grid, ProfileImage } from '../elements'
 
-const OneQnaQuestion = ({ question, index }) => {
+const OneQnaQuestion = React.memo(({ question, index }) => {
   const styles = {
     index: index,
   }
@@ -16,14 +16,14 @@ const OneQnaQuestion = ({ question, index }) => {
             <div className="qna-question-title">{question?.title}</div>
           </div>
           <Grid flex_center padding="10px 0 0">
-            <ProfileImage src={question?.profileImage} />
+            <ProfileImage src={question?.profileImage} size="36" border />
           </Grid>
         </div>
         <div className="question-box box2"></div>
       </Container>
     </>
   )
-}
+})
 
 const Container = styled.div`
   position: relative;
@@ -64,17 +64,6 @@ const Container = styled.div`
     left: 6px;
     background-color: ${(props) => (props.index === 0 ? '#FFE330' : props.index === 1 ? '#FF8E00' : props.index === 2 ? '#00A0FF' : '#7b7b7b')};
   }
-`
-
-const ProfileImage = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 30px;
-  background-size: cover;
-  background-image: url('${(props) => props.src}');
-  background-position: center;
-  background-color: ${({ theme }) => theme.colors.white};
-  border: 2px solid black;
 `
 
 export default OneQnaQuestion

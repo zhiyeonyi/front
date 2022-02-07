@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux'
 import { dictApi } from '../../shared/api'
 import { actionCreators as dictActions } from '../../redux/modules/dict'
 import swal from 'sweetalert'
-import Header from '../../components/Header'
-import ConfirmModal from '../../components/modal/ConfirmModal'
+import { Header } from '../../components'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
 
 const DictEdit = (props) => {
   const dispatch = useDispatch()
@@ -112,17 +112,11 @@ const DictEdit = (props) => {
       </div>
       {showModal && (
         <ConfirmModal question="편집하신 단어를 게시하시겠어요?" showModal={showModal} setShowModal={setShowModal}>
-          <EditDictButton onClick={editDict}>게시</EditDictButton>
+          <ConfirmButton _onClick={editDict}>게시</ConfirmButton>
         </ConfirmModal>
       )}
     </>
   )
 }
-
-const EditDictButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
-`
 
 export default DictEdit

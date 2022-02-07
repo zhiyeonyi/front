@@ -4,13 +4,9 @@ import { useDispatch } from 'react-redux'
 import { history } from '../../redux/ConfigureStore'
 import styled from 'styled-components'
 import { dictApi } from '../../shared/api'
-import Header from '../../components/Header'
-import OneDictionaryCard from '../../components/OneDictionaryCard'
-import PostCard from '../../components/PostCard'
-import Title from '../../elements/Title'
-import Grid from '../../elements/Grid'
-import Footer from '../../components/Footer'
-import ConfirmModal from '../../components/modal/ConfirmModal'
+import { Header, OneDictionaryCard, PostCard, Footer } from '../../components'
+import { Title, Grid } from '../../elements'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
 
 const DictSearch = (props) => {
   const dispatch = useDispatch()
@@ -134,17 +130,11 @@ const DictSearch = (props) => {
         </div>
       </div>
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
       <Footer />
     </>
   )
 }
-
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
-`
 
 export default DictSearch

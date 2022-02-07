@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { history } from '../../redux/ConfigureStore'
 import styled from 'styled-components'
-import PostCard from '../../components/PostCard'
+import { PostCard, Header, Footer, DictNavBar, SpeedDialButton } from '../../components'
 import Pagination from 'rc-pagination'
 import { dictQuestionApi } from '../../shared/api'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import DictNavBar from '../../components/DictNavBar'
-import SpeedDialButton from '../../components/SpeedDialButton'
-import Grid from '../../elements/Grid'
+import { Grid, Title } from '../../elements'
 import '../../index.css'
-import ConfirmModal from '../../components/modal/ConfirmModal'
-import Title from '../../elements/Title'
+import { ConfirmModal, ConfirmButton } from '../../components/modal'
 import SearchPage from '../../shared/SearchPage'
 import { ReactComponent as WriteIcon } from '../../styles/icons/write.svg'
 
@@ -74,7 +69,7 @@ const PostList = (props) => {
         <WriteIcon fill="#FFFFFF" />
       </SpeedDialButton>
       <ConfirmModal showModal={showModal} setShowModal={setShowModal} title="로그인 후 이용할 수 있어요!" question="로그인 페이지로 이동하시겠어요?">
-        <MoveLoginButton onClick={() => history.push('/login')}>이동</MoveLoginButton>
+        <ConfirmButton _onClick={() => history.push('/login')}>이동</ConfirmButton>
       </ConfirmModal>
     </>
   )

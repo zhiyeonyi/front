@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { Link } from 'react-router-dom'
 import { history } from '../redux/ConfigureStore'
-import { actionCreators as dictActions } from '../redux/modules/dict'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { dictApi } from '../shared/api'
-import { ReactComponent as CancelIcon } from '../styles/icons/X_24dp.svg'
 
 function SearchBar({ onAddKeyword }, props) {
   const dispatch = useDispatch()

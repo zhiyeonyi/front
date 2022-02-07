@@ -5,13 +5,13 @@ import { history } from '../redux/ConfigureStore'
 import { actionCreators as mypageActions } from '../redux/modules/mypage'
 import { mypageApi } from '../shared/api'
 
-import Grid from '../elements/Grid'
+import { Grid, ProfileImage } from '../elements'
 import ProfileBottom from './ProfileBottom'
-import AlarmModal from './modal/AlarmModal'
+import { AlarmModal } from './modal'
 import { ReactComponent as ArrowBackIcon } from '../styles/icons/arrow_back_ios_black_24dp.svg'
 import { ReactComponent as BellIcon } from '../styles/icons/notification.svg'
 
-const Header = ({ children, location, type }) => {
+const Header = React.memo(({ children, location, type }) => {
   const dispatch = useDispatch()
   const profile = useSelector((state) => state.mypage.myProfile)
   const userId = localStorage.getItem('id')
@@ -40,7 +40,7 @@ const Header = ({ children, location, type }) => {
     if (isLogin && profile === null) {
       dispatch(mypageActions.getUserProfileDB())
     }
-  }, [showAlarm])
+  }, [dispatch, isLogin, profile])
 
   useEffect(() => {
     if (alarmList?.length > 0) {
@@ -52,7 +52,7 @@ const Header = ({ children, location, type }) => {
         }
       })
     }
-  }, [showAlarm])
+  }, [alarmList])
 
   if (type === 'goBack') {
     return (
@@ -88,7 +88,7 @@ const Header = ({ children, location, type }) => {
                   <BellIcon className="hidden" />
                 )}
               </div>
-              <ProfileImage src={profile?.profileImage} onClick={handleShowProfile} />
+              <ProfileImage src={profile?.profileImage} _onClick={handleShowProfile} margin="0 0 0 8px" cursor="pointer" size="30" />
             </div>
           </Grid>
         ) : (
@@ -101,7 +101,7 @@ const Header = ({ children, location, type }) => {
       {showAlarm && <AlarmModal showAlarm={showAlarm} setShowAlarm={setShowAlarm} alarmList={alarmList !== undefined ? alarmList : []} profile={profile !== null ? profile : ''} />}
     </>
   )
-}
+})
 
 const NavHeader = styled.nav`
   position: fixed;
@@ -173,23 +173,6 @@ const UpdateCircle = styled.span`
   position: absolute;
   top: 8px;
   right: 8px;
-`
-
-const ProfileImage = styled.div`
-  margin: 0 0 0 8px;
-  width: 32px;
-  height: 32px;
-  border-radius: 20px;
-  background-size: cover;
-  background-image: url('${(props) => props.src}');
-  background-position: center;
-  cursor: pointer;
-  background-color: ${({ theme }) => theme.colors.white};
-`
-const MoveLoginButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 export default Header

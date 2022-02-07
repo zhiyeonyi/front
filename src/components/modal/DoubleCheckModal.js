@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import Backdrop from '@mui/material/Backdrop'
+import ModalContainer from './ModalContainer'
 
-const DoubleCheckModal = ({ type, doubleCheck, setDoubleCheck, title, question, children }) => {
+const DoubleCheckModal = React.memo(({ type, doubleCheck, setDoubleCheck, title, question, children }) => {
   window.addEventListener('keyup', (e) => {
     if (doubleCheck === true && e.key === 'Escape') {
       setDoubleCheck(null)
@@ -18,13 +19,13 @@ const DoubleCheckModal = ({ type, doubleCheck, setDoubleCheck, title, question, 
   if (type === 'exist-onlyConfirm') {
     return (
       <Backdrop open={!doubleCheck} sx={{ zIndex: 10000 }} onClick={handleOverlayClick}>
-        <Container onClick={handleContentClick}>
+        <ModalContainer _onClick={handleContentClick}>
           <div>
-            <div className="title-box">{title}</div>
-            <div className="question-box">{question}</div>
+            <Content>{title}</Content>
+            <Content>{question}</Content>
           </div>
-          <div className="confirm-box">{children}</div>
-        </Container>
+          <ConfirmBox>{children}</ConfirmBox>
+        </ModalContainer>
       </Backdrop>
     )
   }
@@ -32,73 +33,53 @@ const DoubleCheckModal = ({ type, doubleCheck, setDoubleCheck, title, question, 
   if (type === 'exist') {
     return (
       <Backdrop open={!doubleCheck} sx={{ zIndex: 10000 }}>
-        <Container>
+        <ModalContainer>
           <div>
-            <div className="title-box">{title}</div>
-            <div className="question-box">{question}</div>
+            <Content>{title}</Content>
+            <Content>{question}</Content>
           </div>
-          <div className="confirm-box">
+          <ConfirmBox>
             <button className="cancel-button" onClick={() => setDoubleCheck(null)}>
               취소
             </button>
             <div>{children}</div>
-          </div>
-        </Container>
+          </ConfirmBox>
+        </ModalContainer>
       </Backdrop>
     )
   }
   return (
     <>
       <Backdrop open={doubleCheck} sx={{ zIndex: 10000 }} onClick={handleOverlayClick}>
-        <Container onClick={handleContentClick}>
+        <ModalContainer _onClick={handleContentClick}>
           <div>
-            <div className="title-box">{title}</div>
-            <div className="question-box">{question}</div>
+            <Content>{title}</Content>
+            <Content>{question}</Content>
           </div>
-          <div className="confirm-box">{children}</div>
-        </Container>
+          <ConfirmBox>{children}</ConfirmBox>
+        </ModalContainer>
       </Backdrop>
     </>
   )
-}
+})
 
-const Container = styled.div`
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-  max-width: 300px;
-  min-width: 280px;
-  width: 100%;
-  height: 130px;
-  background-color: #fff;
-  padding: 24px 24px 16px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out;
+const Content = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-weight: 500;
+`
+
+const ConfirmBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end;
+  -webkit-appearance: none;
   -webkit-box-pack: flex-end;
   -ms-flex-pack: flex-end;
-  -webkit-appearance: none;
-  .title-box {
+  gap: 24px;
+  .cancel-button {
     font-size: ${({ theme }) => theme.fontSizes.base};
-    font-weight: 500;
-  }
-  .question-box {
-    font-size: ${({ theme }) => theme.fontSizes.base};
-    font-weight: 500;
-  }
-  .confirm-box {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 24px;
-    .cancel-button {
-      font-size: ${({ theme }) => theme.fontSizes.base};
-      color: ${({ theme }) => theme.colors.grey};
-      padding: 0;
-    }
+    color: ${({ theme }) => theme.colors.grey};
+    padding: 0;
   }
 `
 

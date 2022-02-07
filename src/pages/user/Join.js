@@ -1,15 +1,14 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import '../../styles/css/Join.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../../redux/ConfigureStore'
 import { actionCreators as userActions } from '../../redux/modules/user'
 import { userApi } from '../../shared/api'
 import styled from 'styled-components'
-import DoubleCheckModal from '../../components/modal/DoubleCheckModal'
-import Footer from '../../components/Footer'
+import { DoubleCheckModal, AlertModal, ConfirmButton } from '../../components/modal'
+import { Footer } from '../../components'
 import MemegleIcon from '../../styles/image/smileIcon_Yellow.png'
-import Grid from '../../elements/Grid'
-import AlertModal from '../../components/modal/AlertModal'
+import { Grid } from '../../elements'
 import CircularProgress from '@mui/material/CircularProgress'
 
 const Join = () => {
@@ -291,12 +290,12 @@ const Join = () => {
       {doubleCheck === null && null}
       {doubleCheck === true && (
         <DoubleCheckModal title="사용 가능합니다!" doubleCheck={doubleCheck} setDoubleCheck={setDoubleCheck}>
-          <ConfirmButton onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
+          <ConfirmButton _onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
         </DoubleCheckModal>
       )}
       {doubleCheck === false && (
         <DoubleCheckModal type="exist-onlyConfirm" title="이미 사용 중이에요!" doubleCheck={doubleCheck} setDoubleCheck={setDoubleCheck}>
-          <ConfirmButton onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
+          <ConfirmButton _onClick={() => setDoubleCheck(null)}>확인</ConfirmButton>
         </DoubleCheckModal>
       )}
       <AlertModal showModal={showAlert}>아이디와 비밀번호를 모두 입력해 주세요!</AlertModal>
@@ -335,12 +334,6 @@ const SpanPasswordCheck = styled.span`
   font-size: 12px;
   margin-bottom: -10px;
   color: #ffa07a;
-`
-
-const ConfirmButton = styled.button`
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.blue};
-  padding: 0;
 `
 
 const Logo = styled.div`
